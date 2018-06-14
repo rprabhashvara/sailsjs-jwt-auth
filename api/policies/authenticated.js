@@ -17,11 +17,12 @@ module.exports = async function(req, res, next) {
   if(!token) return send401();
 
   // validate token and set req.Client if we have a valid token
-  var isValid = await sails.helpers.verifyToken(token).
+  var client = await sails.helpers.verifyToken(token).
                     intercept('tokenNotFound', function(data){ return send401() }).
                     intercept('tokenExpired', function(data){ return sendTokenExpired() });
-  if( isValid ){
-    req.Client = {};
+  if( client ){
+    req.Client = client;
+    // get and set mask here with the use of a helper
     next();
   }
 

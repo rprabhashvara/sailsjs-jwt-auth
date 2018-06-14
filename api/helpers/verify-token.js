@@ -31,7 +31,7 @@ module.exports = {
 
   fn: async function (inputs, exits) {
 
-    var token = await Token.findOne({ token_value: inputs.token });
+    var token = await Token.findOne({ token_value: inputs.token }).populate('client');
     if( !token ){
         return exits.tokenNotFound();
     }
@@ -43,7 +43,9 @@ module.exports = {
         return exits.tokenExpired();
     }
 
-    return exits.success(true);
+    var client = token.client;
+
+    return exits.success( client );
 
   }
 
