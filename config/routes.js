@@ -28,6 +28,10 @@ module.exports.routes = {
     view: 'pages/homepage'
   },
 
+  'POST /auth/createToken': { action: 'auth/create-token' },
+  'POST /auth/refreshToken': { action: 'auth/refresh-token' },
+  'GET /client': { action: 'client' },
+
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
